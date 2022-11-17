@@ -1,11 +1,12 @@
-from django.contrib.auth.models import User, Group
+#from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+from .models import Jamapp
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class JamappSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User
-        fields = ['url', 'username', 'email', 'groups']
+        model = Jamapp
+        fields = ['"__all__"']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):

@@ -1,16 +1,23 @@
-from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from rest_framework import permissions
-from jamproject.jamapp.serializers import UserSerializer, GroupSerializer
+from django.shortcuts import render
+from rest_framework.views import APIView
+from django.http.response import Http404
+from rest_framework.response import Response
+from .models import Jamapp
+from .serializers import JamSerializer
 
+class Jamapp(APIView):
+    def get_object(self, pk):
+        
+        try:
+            return Jamapp().objects.get(pk=pk)
+        except Jamapp.DoesNotExist:
+            raise Http404
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    def get(self, request, format=None, pk=None):
+       if pk:
+            data = self.get_object(pk)
+            serializer = TodoSeriallizer(data)
+      
 
 
 class GroupViewSet(viewsets.ModelViewSet):
