@@ -1,6 +1,6 @@
 #from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Song, Album, Genre
+from .models import Song, Album, Genre, Playlist
 
 class SongSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -15,12 +15,11 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
 class GenreSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Genre
-        field = "__all__"
+        fields = "__all__"
 
+class PlaylistSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Playlist
+        fields = "__all__"
 
-
-
-# class GroupSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model = Group
-#         fields = ['url', 'name']
+#class GroupSerializer(serializers.HyperlinkedModelSerializer):

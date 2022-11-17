@@ -3,8 +3,8 @@ from rest_framework.views import APIView
 from django.http.response import Http404
 from rest_framework import viewsets
 from rest_framework.response import Response
-from .models import Song, Album, Genre
-from .serializers import SongSerializer, AlbumSerializer, GenreSerializer
+from .models import Song, Album, Genre, Playlist
+from .serializers import SongSerializer, AlbumSerializer, GenreSerializer, PlaylistSerializer
 
 
 class SongViewSet(viewsets.ModelViewSet):
@@ -18,6 +18,10 @@ class AlbumViewSet(viewsets.ModelViewSet):
 class GenreViewSet(viewsets.ModelViewSet):
     serializer_class = GenreSerializer
     queryset = Genre.objects.all().order_by("type")
+
+class PlaylistViewSet(viewsets.ModelViewSet):
+    serializer_class = PlaylistSerializer
+    queryset = Playlist.objects.all().order_by("created")
 
 
 # class Jamapp(APIView):

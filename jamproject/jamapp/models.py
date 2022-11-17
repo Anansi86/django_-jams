@@ -22,3 +22,10 @@ class Genre(models.Model):
     def __str__(self):
         return self.type
 
+class Playlist(models.Model):
+    name = models.CharField(max_length=25, blank=False, unique=True)
+    created = models.DateTimeField()
+    Total_songs = models.IntegerField()
+
+    def __str__(self):
+        return self.name
