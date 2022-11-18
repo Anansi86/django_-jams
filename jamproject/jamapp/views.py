@@ -2,9 +2,10 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from django.http.response import Http404
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import Song, Album, Genre, Playlist
-from .serializers import SongSerializer, AlbumSerializer, GenreSerializer, PlaylistSerializer
+from .models import Song, Album, Genre, Playlist, Artist
+from .serializers import SongSerializer, AlbumSerializer, GenreSerializer, PlaylistSerializer, ArtistSerializer
 
 
 class SongViewSet(viewsets.ModelViewSet):
@@ -22,23 +23,16 @@ class GenreViewSet(viewsets.ModelViewSet):
 class PlaylistViewSet(viewsets.ModelViewSet):
     serializer_class = PlaylistSerializer
     queryset = Playlist.objects.all().order_by("created")
+    
+    @action(detail=True, methods=['post'])
+    def add_song(self, request, pk=None):
+        song = Song.objects.get(pk=request.data["song_id"])
+        playlist = Playlist.objects.get(pk=pk)
+        playlist.songs.add(song)
+        playlist.Total_songs = playlist.songs.count()  #<how 
+        playlist.save()
+        return Response({'success': True})
 
-
-# class Jamapp(APIView):
-#     def get_object(self, pk):
-        
-#         try:
-#             return jamapp.objects.get(pk=pk)
-#         except jamapp.DoesNotExist:
-#             raise Http404
-
-#     def get(self, request, format=None, pk=None):
-#         if pk:
-#             data = self.get_object(pk)
-#             serializer = JamappSeriallizer(data)
-
-#         else:
-#             data = jamapp.objects.all()
-#             serializer = JamappSeriallizer(data, many=True)
-
-#             return Response(serializer.data)
+class ArtistViewSet(viewsets.ModelViewSet):
+    serializer_class = ArtistSerializer
+    queryset = Playlist.objects.all().order_by("name")

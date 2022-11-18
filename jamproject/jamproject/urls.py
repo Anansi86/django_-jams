@@ -2,13 +2,14 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from jamapp import views
-from jamapp.views import SongViewSet, AlbumViewSet, GenreViewSet, PlaylistViewSet
+from jamapp.views import SongViewSet, AlbumViewSet, GenreViewSet, PlaylistViewSet, ArtistViewSet
 
 router = routers.DefaultRouter()
 router.register(r'Songs', views.SongViewSet)
 router.register(r'Albums', views.AlbumViewSet)
 router.register(r'Genres', views.GenreViewSet)
 router.register(r'Playlists', views.PlaylistViewSet)
+router.register(r'Artist', views.ArtistViewSet)
 
 Song_list = SongViewSet.as_view({
     'get': 'list'
@@ -26,6 +27,9 @@ Playlist_list = PlaylistViewSet.as_view({
     'get': 'list'
 })
 
+Artist_list = ArtistViewSet.as_view({
+    'get': 'list'
+})
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
@@ -37,4 +41,5 @@ urlpatterns = [
     path('albums', Album_list, name='album-list'),
     path('genres', Genre_list, name='song-list'),
     path('playlist', Playlist_list, name='playlist-list'),
+    path('artists', Artist_list, name='artist-list'),
 ]
