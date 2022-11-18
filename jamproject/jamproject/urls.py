@@ -5,10 +5,10 @@ from jamapp import views
 from jamapp.views import SongViewSet, AlbumViewSet, GenreViewSet, PlaylistViewSet
 
 router = routers.DefaultRouter()
-router.register(r'Song', views.SongViewSet)
+router.register(r'Songs', views.SongViewSet)
 router.register(r'Albums', views.AlbumViewSet)
-router.register(r'Genre', views.GenreViewSet)
-router.register(r'Playlist', views.PlaylistViewSet)
+router.register(r'Genres', views.GenreViewSet)
+router.register(r'Playlists', views.PlaylistViewSet)
 
 Song_list = SongViewSet.as_view({
     'get': 'list'
