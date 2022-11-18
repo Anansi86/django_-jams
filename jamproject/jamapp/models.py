@@ -1,10 +1,17 @@
 from django.db import models
 
+class Genre(models.Model):
+    type = models.CharField(max_length=25, blank=False, unique=True)
+
+    def __str__(self):
+        return self.type
+
 # Create your models here.
 class Song(models.Model):
     title = models.CharField(max_length=25, blank=False, unique=True)
     duration = models.FloatField()
     numPlays = models.IntegerField()
+    genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.title
@@ -16,11 +23,6 @@ class Album(models.Model):
     def __str__(self):
         return self.title
 
-class Genre(models.Model):
-    type = models.CharField(max_length=25, blank=False, unique=True)
-
-    def __str__(self):
-        return self.type
 
 class Playlist(models.Model):
     name = models.CharField(max_length=25, blank=False, unique=True)
