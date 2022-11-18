@@ -5,12 +5,12 @@ from jamapp import views
 from jamapp.views import SongViewSet, AlbumViewSet, GenreViewSet, PlaylistViewSet
 
 router = routers.DefaultRouter()
-router.register(r'Song', views.SongViewSet)
+router.register(r'Songs', views.SongViewSet)
 router.register(r'Albums', views.AlbumViewSet)
-router.register(r'Genre', views.GenreViewSet)
-router.register(r'Playlist', views.PlaylistViewSet)
+router.register(r'Genres', views.GenreViewSet)
+router.register(r'Playlists', views.PlaylistViewSet)
 
-song_list = SongViewSet.as_view({
+Song_list = SongViewSet.as_view({
     'get': 'list'
 })
 
@@ -33,7 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('songs', song_list, name='song-list'),
+    path('songs', Song_list, name='song-list'),
     path('albums', Album_list, name='album-list'),
     path('genres', Genre_list, name='song-list'),
     path('playlist', Playlist_list, name='playlist-list'),

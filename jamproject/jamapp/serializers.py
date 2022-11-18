@@ -8,6 +8,7 @@ class SongSerializer(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
 
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
+    songs = SongSerializer(many=True)
     class Meta:
         model = Album
         fields = "__all__"
@@ -18,6 +19,7 @@ class GenreSerializer(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
 
 class PlaylistSerializer(serializers.HyperlinkedModelSerializer):
+    songs = SongSerializer(many=True)
     class Meta:
         model = Playlist
         fields = "__all__"
