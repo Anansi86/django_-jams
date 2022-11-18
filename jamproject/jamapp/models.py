@@ -6,7 +6,7 @@ class Genre(models.Model):
     def __str__(self):
         return self.type
 
-# Create your models here.
+
 class Song(models.Model):
     title = models.CharField(max_length=30, blank=False, unique=True)
     duration = models.FloatField()
@@ -36,3 +36,9 @@ class Playlist(models.Model):
 
     def __str__(self):
         return self.name
+
+class Artist(models.Model):
+    name = models.CharField(max_length=30, blank=False, unique=True)
+    description = models.CharField(max_length=200, blank= False, unique=True)
+    age = models.IntegerField()
+    song = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True)
